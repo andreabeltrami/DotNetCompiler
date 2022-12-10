@@ -15,6 +15,13 @@
 
         private int EvaluateNodo(EspressioneBase espressione)
         {
+            if (espressione is EspressioneUnaria u)
+            {
+                if (u.Operando.TipoToken == TipoToken.Minus)
+                    return -EvaluateNodo(u.Espressione);
+                return EvaluateNodo(u.Espressione);
+
+            }
             if (espressione is EspressioneParentesi p)
                 return EvaluateNodo(p.Espressione);
 

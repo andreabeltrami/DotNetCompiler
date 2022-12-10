@@ -23,7 +23,13 @@
 
         public static void PrettyPrint(EspressioneBase espressioneBase, string indent = "")
         {
-            if(espressioneBase is EspressioneParentesi p)
+            if (espressioneBase is EspressioneUnaria u)
+            {
+                Console.WriteLine($"{indent}{u.TipoToken} {u.Operando.Text}");
+                indent += "    ";
+                PrettyPrint(u.Espressione, indent);
+            }
+            else if (espressioneBase is EspressioneParentesi p)
             {
                 Console.WriteLine($"{indent}{p.TipoToken}");
                 indent += "    ";

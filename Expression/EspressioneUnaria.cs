@@ -12,6 +12,8 @@
         }
 
         public Token Operando => _operando;
+
+        public EspressioneBase Espressione => _espressione;
         public override TipoToken TipoToken => TipoToken.EspressioneUnaria;
 
         public override IEnumerable<TokenBase> GetFigli()
