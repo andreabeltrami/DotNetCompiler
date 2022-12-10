@@ -1,32 +1,37 @@
 ﻿namespace Expression
 {
-    public class Token
+    public class Token: TokenBase
     {
         private TipoToken _tipoToken;
         private string _text;
 
         public Token(TipoToken tipoToken, string text)
         {
-            TipoToken = tipoToken;
-            Text = text;
+            _tipoToken = tipoToken;
+            _text = text;
         }
 
         public bool IsOperator()
         {
             switch (_tipoToken)
             {
-                case TipoToken.Piu:
-                case TipoToken.Meno:
-                case TipoToken.Per:
-                case TipoToken.Diviso:
+                case TipoToken.Plus:
+                case TipoToken.Minus:
+                case TipoToken.Star:
+                case TipoToken.Slash:
                     return true;
             }
 
             return false;
         }
 
-        public TipoToken TipoToken { get => _tipoToken; set => _tipoToken = value; }
-        public string Text { get => _text; set => _text = value; }
+        public override IEnumerable<TokenBase> GetFigli()
+        {
+            return new List<TokenBase>();
+        }
+
+        public override TipoToken TipoToken => _tipoToken;
+        public string Text => _text;
     }
 }
 

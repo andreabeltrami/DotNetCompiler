@@ -6,10 +6,10 @@
         private List<Token> _tokens = new List<Token>();
         Dictionary<TipoToken, int> _dizionarioPriorità = new Dictionary<TipoToken, int>
         {
-            { TipoToken.Piu, 1},
-            { TipoToken.Meno, 1},
-            { TipoToken.Per, 2},
-            { TipoToken.Diviso, 2},
+            { TipoToken.Plus, 1},
+            { TipoToken.Minus, 1},
+            { TipoToken.Star, 2},
+            { TipoToken.Slash, 2},
             { TipoToken.ApertaParentesi, 3},
             { TipoToken.ChiusaParentesi, 3},
         };
@@ -20,9 +20,10 @@
 
         }
 
-        public Nodo GetNodo(int prioritàCorrente = 0)
+        public EspressioneBase GetEspressione(int prioritàCorrente = 0)
         {
-            Nodo sinistra = new Nodo(LeggiToken());
+            EspressioneBase sinistra = new EspressioneLetterale(LeggiToken());
+           
             while (true)
             {
                 int precedenza = GetPriority(Corrente.TipoToken);
@@ -30,12 +31,11 @@
                     break;
 
                 Token token = LeggiToken();
-                Nodo destra = GetNodo(precedenza);
-                sinistra = new Nodo(sinistra, token, destra);
+                EspressioneBase destra = GetEspressione(precedenza);
+                sinistra = new EspressioneBinaria(sinistra, token, destra);
             }
             return sinistra;
         }
-
         public Token Corrente => _tokens[_posizione];
 
         public Token LeggiToken()

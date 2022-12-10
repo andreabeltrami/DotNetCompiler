@@ -2,14 +2,20 @@
 {
     public enum TipoToken
     {
-        Piu,
-        Meno,
-        Per,
-        Diviso,
-        Numero,
+        Plus,
+        Minus,
+        Star,
+        Slash,
+        Number,
         ApertaParentesi,
         ChiusaParentesi,
-        FineFile
+        EndOfFile,
+
+        EspressioneBinaria, 
+        EspressioneLetterale,
+        EspressioneUnaria,
+        EspressioneParentesi
+
 
     }
 }

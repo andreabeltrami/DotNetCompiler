@@ -11,25 +11,30 @@
 
                 var tokens = LeggiToken.Leggi(stringa);
                 Parser parser = new Parser(tokens);
-                Nodo nodo = parser.GetNodo();
 
-                PrettyPrint(nodo);
+                EspressioneBase espressione = parser.GetEspressione();
+                PrettyPrint(espressione);
 
-                Evaluator evaluator = new Evaluator(nodo);
+                Evaluator evaluator = new Evaluator(espressione);
                 var valore = evaluator.Evaluate();
                 Console.WriteLine($"Valore: {valore}");
             }
         }
 
-        public static void PrettyPrint(Nodo nodo, string indent = "")
+        public static void PrettyPrint(EspressioneBase espressioneBase, string indent = "")
         {
-            Console.WriteLine($"{indent}{nodo.Token.TipoToken} {nodo.Token.Text}");
-            indent += "    ";
-            if (nodo.Sinistra is not null)
-                PrettyPrint(nodo.Sinistra, indent);
-            if (nodo.Destra is not null)
-                PrettyPrint(nodo.Destra, indent);
-
+            if (espressioneBase is EspressioneLetterale n)
+                Console.WriteLine($"{indent}{n.TipoToken} {n.TokenLetterale.Text}");
+            else if (espressioneBase is EspressioneBinaria b)
+            {
+                Console.WriteLine($"{indent}{b.TipoToken} {b.Operatore.Text}");
+                indent += "    ";
+                if (b.Sinistra is not null)
+                    PrettyPrint(b.Sinistra, indent);
+                if (b.Destra is not null)
+                    PrettyPrint(b.Destra, indent);
+                
+            }
         }
     }
 }

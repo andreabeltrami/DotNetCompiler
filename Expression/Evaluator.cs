@@ -2,8 +2,8 @@
 {
     public class Evaluator
     {
-        Nodo _nodo;
-        public Evaluator(Nodo nodo)
+        EspressioneBase _nodo;
+        public Evaluator(EspressioneBase nodo)
         {
             _nodo = nodo;
         }
@@ -13,30 +13,30 @@
             return EvaluateNodo(_nodo);
         }
 
-        private int EvaluateNodo(Nodo nodo)
+        private int EvaluateNodo(EspressioneBase espressione)
         {
 
-            if (nodo.Token.IsOperator())
+            if (espressione is EspressioneBinaria b)
             {
-                var resultSinistra = EvaluateNodo(nodo.Sinistra);
-                var resultDestra = EvaluateNodo(nodo.Destra);
+                var resultSinistra = EvaluateNodo(b.Sinistra);
+                var resultDestra = EvaluateNodo(b.Destra);
 
-                switch (nodo.Token.TipoToken)
+                switch (b.Operatore.TipoToken)
                 {
-                    case TipoToken.Piu:
+                    case TipoToken.Plus:
                         return resultSinistra + resultDestra;
-                    case TipoToken.Meno:
+                    case TipoToken.Minus:
                         return resultSinistra - resultDestra;
-                    case TipoToken.Per:
+                    case TipoToken.Star:
                         return resultSinistra * resultDestra;
-                    case TipoToken.Diviso:
+                    case TipoToken.Slash:
                         return resultSinistra / resultDestra;
                 }
 
             }
 
-            if (nodo.Destra is null && nodo.Sinistra is null)
-                return Convert.ToInt32(nodo.Token.Text);
+            if (espressione is EspressioneLetterale n)
+                return Convert.ToInt32(n.TokenLetterale.Text);
 
             return 0;
         }

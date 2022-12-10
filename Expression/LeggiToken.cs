@@ -25,18 +25,18 @@
                 {
                     if (!string.IsNullOrEmpty(ultimoNumero))
                     {
-                        listaToken.Add(new Token(TipoToken.Numero, ultimoNumero));
+                        listaToken.Add(new Token(TipoToken.Number, ultimoNumero));
                         ultimoNumero = string.Empty;
                     }
 
                     if (charCorrente == '+')
-                        listaToken.Add(new Token(TipoToken.Piu, charCorrente.ToString()));
+                        listaToken.Add(new Token(TipoToken.Plus, charCorrente.ToString()));
                     if (charCorrente == '-')
-                        listaToken.Add(new Token(TipoToken.Meno, charCorrente.ToString()));
+                        listaToken.Add(new Token(TipoToken.Minus, charCorrente.ToString()));
                     if (charCorrente == '*')
-                        listaToken.Add(new Token(TipoToken.Per, charCorrente.ToString()));
+                        listaToken.Add(new Token(TipoToken.Star, charCorrente.ToString()));
                     if (charCorrente == '/')
-                        listaToken.Add(new Token(TipoToken.Diviso, charCorrente.ToString()));
+                        listaToken.Add(new Token(TipoToken.Slash, charCorrente.ToString()));
                     if (charCorrente == '(')
                         listaToken.Add(new Token(TipoToken.ApertaParentesi, charCorrente.ToString()));
                     if (charCorrente == ')')
@@ -45,7 +45,7 @@
 
                 if (fineFile)
                 {
-                    listaToken.Add(new Token(TipoToken.FineFile, ""));
+                    listaToken.Add(new Token(TipoToken.EndOfFile, ""));
                     break;
                 }
 
