@@ -15,6 +15,8 @@
 
         private int EvaluateNodo(EspressioneBase espressione)
         {
+            if (espressione is EspressioneParentesi p)
+                return EvaluateNodo(p.Espressione);
 
             if (espressione is EspressioneBinaria b)
             {
@@ -34,7 +36,6 @@
                 }
 
             }
-
             if (espressione is EspressioneLetterale n)
                 return Convert.ToInt32(n.TokenLetterale.Text);
 

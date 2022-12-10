@@ -10,8 +10,6 @@
             { TipoToken.Minus, 1},
             { TipoToken.Star, 2},
             { TipoToken.Slash, 2},
-            { TipoToken.ApertaParentesi, 3},
-            { TipoToken.ChiusaParentesi, 3},
         };
 
         public Parser(List<Token> tokens)
@@ -22,7 +20,7 @@
 
         public EspressioneBase GetEspressione(int prioritàCorrente = 0)
         {
-            EspressioneBase sinistra = new EspressioneLetterale(LeggiToken());
+            EspressioneBase sinistra = GetEspressionePrimaria();
            
             while (true)
             {
@@ -32,10 +30,25 @@
 
                 Token token = LeggiToken();
                 EspressioneBase destra = GetEspressione(precedenza);
-                sinistra = new EspressioneBinaria(sinistra, token, destra);
+                sinistra = new EspressioneBinaria(sinistra, token, destra);              
             }
             return sinistra;
         }
+
+        public EspressioneBase GetEspressionePrimaria()
+        {
+            if (Corrente.TipoToken == TipoToken.ApertaParentesi)
+            {
+                var openPar = LeggiToken();
+                var espressioneParentesi = GetEspressione();
+                var closePars = LeggiToken();
+                return new EspressioneParentesi(openPar, espressioneParentesi, closePars);
+
+            }
+
+            return new EspressioneLetterale(LeggiToken());
+        }
+
         public Token Corrente => _tokens[_posizione];
 
         public Token LeggiToken()
