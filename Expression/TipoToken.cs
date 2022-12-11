@@ -9,6 +9,8 @@
         Number,
         ApertaParentesi,
         ChiusaParentesi,
+        TrueKeyword,
+        FalseKeyword,
         EndOfFile,
 
         EspressioneBinaria, 

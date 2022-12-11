@@ -2,8 +2,6 @@ namespace Expression.UnitTest
 {
     public class TestsParser
     {
-
-
         [Theory]
         [TestCaseSource(nameof(SourceList))]
         public void Test_Multiple_Sum(KeyValuePair<string, int> keyValuePair)
@@ -13,7 +11,7 @@ namespace Expression.UnitTest
 
         private static int GetResult(string input)
         {
-            var alberoDecisionale = new Parser(LeggiToken.Leggi(input)).GetEspressione();
+            var alberoDecisionale = new Parser(new Lexer(input).Leggi()).GetEspressione();
             var risultato = new Evaluator(alberoDecisionale).Evaluate();
             return risultato;
         }

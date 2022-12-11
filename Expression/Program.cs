@@ -9,7 +9,7 @@
                 Console.Write(">");
                 string stringa = Console.ReadLine();
 
-                var tokens = LeggiToken.Leggi(stringa);
+                var tokens = new Lexer(stringa).Leggi();
                 Parser parser = new Parser(tokens);
 
                 EspressioneBase espressione = parser.GetEspressione();
