@@ -22,7 +22,7 @@ namespace Expression.UnitTest
         {
             get
             {
-                var dictionary = new Dictionary<string, int>()
+                var dictionary = new Dictionary<string, int>() 
                 {
                     {"(1*2)*-(8+9)", -34 },
                     {"1+2", 3 },
