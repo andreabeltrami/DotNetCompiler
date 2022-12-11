@@ -8,23 +8,24 @@
             _nodo = nodo;
         }
 
-        public int Evaluate()
+        public object Evaluate()
         {
             return EvaluateNodo(_nodo);
         }
 
-        private int EvaluateNodo(EspressioneBase espressione)
+        private object EvaluateNodo(EspressioneBase espressione)
         {
-            if (espressione is EspressioneUnaria u)
-            {
-                if (u.Operando.TipoToken == TipoToken.Minus)
-                    return -EvaluateNodo(u.Espressione);
-                return EvaluateNodo(u.Espressione);
-
-            }
             if (espressione is EspressioneParentesi p)
                 return EvaluateNodo(p.Espressione);
 
+
+            if (espressione is EspressioneUnaria u)
+            {
+                if (u.Operando.TipoToken == TipoToken.Minus)
+                    return -(int)EvaluateNodo(u.Espressione);
+                return EvaluateNodo(u.Espressione);
+            }
+          
             if (espressione is EspressioneBinaria b)
             {
                 var resultSinistra = EvaluateNodo(b.Sinistra);
@@ -33,20 +34,27 @@
                 switch (b.Operatore.TipoToken)
                 {
                     case TipoToken.Plus:
-                        return resultSinistra + resultDestra;
+                        return (int)resultSinistra + (int)resultDestra;
                     case TipoToken.Minus:
-                        return resultSinistra - resultDestra;
+                        return (int)resultSinistra - (int)resultDestra;
                     case TipoToken.Star:
-                        return resultSinistra * resultDestra;
+                        return (int)resultSinistra * (int)resultDestra;
                     case TipoToken.Slash:
-                        return resultSinistra / resultDestra;
+                        return (int)resultSinistra / (int)resultDestra;
+                    case TipoToken.EqualsEquals:
+                        return resultSinistra.Equals(resultDestra);
+                    case TipoToken.NotEquals:
+                        return !resultSinistra.Equals(resultDestra);
                 }
 
             }
             if (espressione is EspressioneLetterale n)
-                return Convert.ToInt32(n.TokenLetterale.Text);
+                return n.Value;
+            
+            
+               
 
-            return 0;
+            return null;
         }
     }
 }

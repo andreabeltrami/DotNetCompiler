@@ -7,6 +7,8 @@
         Star,
         Slash,
         Number,
+        EqualsEquals,
+        NotEquals,
         ApertaParentesi,
         ChiusaParentesi,
         TrueKeyword,
@@ -16,9 +18,9 @@
         EspressioneBinaria, 
         EspressioneLetterale,
         EspressioneUnaria,
-        EspressioneParentesi
-
-
+        EspressioneParentesi,
+        Greater,
+        Minor
     }
 }
 

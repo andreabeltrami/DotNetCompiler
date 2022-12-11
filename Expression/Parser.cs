@@ -6,16 +6,18 @@
         private List<Token> _tokens = new List<Token>();
         Dictionary<TipoToken, int> _dizionarioPrioritàBinary = new Dictionary<TipoToken, int>
         {
-            { TipoToken.Plus, 1},
-            { TipoToken.Minus, 1},
-            { TipoToken.Star, 2},
-            { TipoToken.Slash, 2},
+            { TipoToken.EqualsEquals, 1 },
+            { TipoToken.NotEquals, 1 },
+            { TipoToken.Plus, 2},
+            { TipoToken.Minus, 2},
+            { TipoToken.Star, 3},
+            { TipoToken.Slash, 3},
         };
 
         Dictionary<TipoToken, int> _dizionarioPrioritàUnary = new Dictionary<TipoToken, int>
         {
-            { TipoToken.Plus, 3},
-            { TipoToken.Minus, 3},
+            { TipoToken.Plus, 4},
+            { TipoToken.Minus, 4},
         };
 
 
@@ -46,10 +48,10 @@
                 int precedenza = GetPriorityBinaria(Corrente.TipoToken);
                 if (precedenza == 0 || precedenza <= prioritàCorrente)
                     break;
-
+                
                 Token token = LeggiToken();
                 EspressioneBase destra = GetEspressione(precedenza);
-                sinistra = new EspressioneBinaria(sinistra, token, destra);              
+                sinistra = new EspressioneBinaria(sinistra, token, destra);
             }
             return sinistra;
         }
@@ -64,8 +66,14 @@
                 return new EspressioneParentesi(openPar, espressioneParentesi, closePars);
 
             }
+            var token = LeggiToken();
+            object value;
+            if (token.TipoToken == TipoToken.TrueKeyword || token.TipoToken == TipoToken.FalseKeyword)
+                value = Convert.ToBoolean(token.Text);
+            else
+                value = Convert.ToInt32(token.Text);
 
-            return new EspressioneLetterale(LeggiToken());
+            return new EspressioneLetterale(token, value);
         }
 
         public Token Corrente => _tokens[_posizione];

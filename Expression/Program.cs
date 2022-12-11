@@ -28,7 +28,7 @@
                 Console.WriteLine($"{indent}{u.TipoToken} {u.Operando.Text}");
                 indent += "    ";
                 PrettyPrint(u.Espressione, indent);
-            }
+            }       
             else if (espressioneBase is EspressioneParentesi p)
             {
                 Console.WriteLine($"{indent}{p.TipoToken}");

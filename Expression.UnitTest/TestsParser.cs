@@ -9,7 +9,7 @@ namespace Expression.UnitTest
             Assert.That(GetResult(keyValuePair.Key), Is.EqualTo(keyValuePair.Value));
         }
 
-        private static int GetResult(string input)
+        private static object GetResult(string input)
         {
             var alberoDecisionale = new Parser(new Lexer(input).Leggi()).GetEspressione();
             var risultato = new Evaluator(alberoDecisionale).Evaluate();
